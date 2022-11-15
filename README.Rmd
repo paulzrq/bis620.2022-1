@@ -17,7 +17,6 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/CYorick/bis620.2022/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/CYorick/bis620.2022/actions/workflows/R-CMD-check.yaml)
-[![Codecov test coverage](https://codecov.io/gh/CYorick/bis620.2022/branch/main/graph/badge.svg)](https://app.codecov.io/gh/CYorick/bis620.2022?branch=main)
 <!-- badges: end -->
 
 The goal of bis620.2022 is to ...
@@ -27,7 +26,7 @@ The goal of bis620.2022 is to ...
 You can install the development version of bis620.2022 from [GitHub](https://github.com/) with:
 
 ``` r
-install.packages("devtools")
+# install.packages("devtools")
 devtools::install_github("CYorick/bis620.2022")
 ```
 
