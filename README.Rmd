@@ -17,9 +17,11 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/CYorick/bis620.2022/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/CYorick/bis620.2022/actions/workflows/R-CMD-check.yaml)
+[![test_coverage](https://github.com/CYorick/bis620.2022/actions/workflows/test_coverage.yaml/badge.svg)](https://github.com/CYorick/bis620.2022/actions/workflows/test_coverage.yaml)
+[![lint](https://github.com/CYorick/bis620.2022/actions/workflows/lint.yaml/badge.svg)](https://github.com/CYorick/bis620.2022/actions/workflows/lint.yaml)
 <!-- badges: end -->
 
-The goal of bis620.2022 is to ...
+The goal of bis620.2022 is to check the kb_accel data, and the package also includes functions that can plot the ukb_accel data with logarithm or without logarithm, with or without Fourier Transform.
 
 ## Installation
 
