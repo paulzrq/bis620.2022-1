@@ -11,11 +11,11 @@
 #' data(ukb_accel)
 #' accel_plot(ukb_accel[1:1000,])
 #' @export
-accel_plot = function(x) {
+accel_plot <- function(x) {
   if ("time" %in% colnames(x)) {
-    col = as.symbol("time")
+    col <- as.symbol("time")
   } else if ("freq" %in% colnames(x)) {
-    col = as.symbol("freq")
+    col <- as.symbol("freq")
   } else {
     stop("A `time` or a `freq` column must appear in the data.")
   }
