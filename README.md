@@ -6,7 +6,6 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/CYorick/bis620.2022/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/CYorick/bis620.2022/actions/workflows/R-CMD-check.yaml)
-[![test_coverage](https://github.com/CYorick/bis620.2022/actions/workflows/test_coverage.yaml/badge.svg)](https://github.com/CYorick/bis620.2022/actions/workflows/test_coverage.yaml)
 [![lint](https://github.com/CYorick/bis620.2022/actions/workflows/lint.yaml/badge.svg)](https://github.com/CYorick/bis620.2022/actions/workflows/lint.yaml)
 [![test-coverage](https://github.com/CYorick/bis620.2022/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/CYorick/bis620.2022/actions/workflows/test-coverage.yaml)
 <!-- badges: end -->
