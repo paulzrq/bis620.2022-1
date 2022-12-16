@@ -16,4 +16,22 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(bis620.2022)
+
 ```
+
+# Your team (name and netid).
+Yorick Chen (yc896)
+
+# A description of the data.
+This is a data from...
+
+# The motivation for your research question.
+## Motivation 1
+## Motivation 2
+# A scientific research question.
+## Question 1
+## Question 2
+
+```{r}
+```
+

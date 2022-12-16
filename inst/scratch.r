@@ -4,22 +4,15 @@ library(dplyr)
 library(ggplot2)
 
 document()
-document()
 
 data(ukb_accel)
 
-dt <- first(ukb_accel$time)
+DataPlot(ukb_accel)
+DataProcess(ukb_accel)
+summary_baseline(ukb_accel)
+summary_response(ukb_accel)
+summary_KRAS(ukb_accel)
+summary_sex(ukb_accel)
 
-ukb_accel |>
-  filter(time >= dt  & time < dt + minutes(5)) |>
-#  (\(x) x[seq(1, nrow(x), by =100),])() |>
-  accel_plot() +
-    theme_minimal() +
-    xlab("Time") +
-    ylab("Acceleration (in gravities)")
-
-ukb_accel |>
-  filter(time >= dt & time < dt + minutes(5)) |>
-  spectral_signature(take_log = TRUE) |>
- # filter(freq <= 10) |>
-  accel_plot()
+survival_ATRT(ukb_accel)
+survival_ATRT_KRAS(ukb_accel)
