@@ -13,7 +13,7 @@
 #' p-value, two tibbles of survival analysis result on
 #' "FOLFOX alone" and "Panitumumab + FOLFOX" conditioned on type
 #' of KRAS you choose, and the summary of survival analysis
-#' @importFrom dplyr left_join
+#' @importFrom dplyr left_join filter
 #' @importFrom gtsummary tbl_summary
 #' @importFrom survminer ggsurvplot
 #' @importFrom survival Surv survfit survdiff
@@ -22,8 +22,6 @@
 #' summary_response(ukb_accel)
 #' @export
 #'
-
-
 
 survival_ATRT_KRAS <- function(dl, name="Mutant", detailed=FALSE){
   KRAS_names = c("Wild-type", "Unknown", "Mutant")
@@ -51,8 +49,9 @@ survival_ATRT_KRAS <- function(dl, name="Mutant", detailed=FALSE){
     }
   }
   type = c()
-  comb = dl$biomark |> select(SUBJID,BMMTNM1,BMMTR1,
-                              BMMTNM2,BMMTR2,BMMTNM3,BMMTR3,BMMTNM15,BMMTR15)
+  comb = dl$biomark |> select(SUBJID, BMMTNM1, BMMTR1,
+                              BMMTNM2, BMMTR2, BMMTNM3, BMMTR3,
+                              BMMTNM15, BMMTR15)
   comb = inner_join(comb, dl$adsl |>
                       select(ATRT, SUBJID, DTHDY, DTH),
                     by='SUBJID')
@@ -60,7 +59,7 @@ survival_ATRT_KRAS <- function(dl, name="Mutant", detailed=FALSE){
     type = c(type, find_type(comb[i,]))
   }
   comb$KRAS = type
-  name |> assign(comb |> filter(KRAS == name) |>
+  name |> assign(comb |> dplyr::filter(KRAS == name) |>
     select(ATRT, KRAS, DTHDY, DTH))
   survive = survfit(Surv(DTHDY, DTH) ~ ATRT, data = get(name))
   surv_diff = survdiff(formula = Surv(DTHDY, DTH) ~ ATRT,

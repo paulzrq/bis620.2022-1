@@ -21,7 +21,7 @@
 #' survivalATRT_age(ukb_accel)
 #' @export
 
-survivalATRT_age <- function(dl,detail=FALSE) {
+survivalATRT_age <- function(dl, detail=FALSE) {
   comb = dl$biomark |> select(SUBJID,BMMTNM1,BMMTR1,BMMTNM2,BMMTR2,BMMTNM3,BMMTR3,BMMTNM15,BMMTR15)
   comb = inner_join(comb, dl$adsl, by='SUBJID')
   find_type = function(aep){

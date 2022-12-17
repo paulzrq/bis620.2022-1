@@ -5,10 +5,10 @@
 #' @importFrom dplyr inner_join
 #' @importFrom nlme lme
 #' @importFrom car avPlot
-#' @importFrom stats complete.cases filter na.exclude
+#' @importFrom stats complete.cases na.exclude
 #' @export
-linear_regression <- function(x){
-  demo1 = left_join(x$adsl,x$adae,by='SUBJID')
+linear_regression <- function(x) {
+  demo1 <- left_join(x$adsl, x$adae,by='SUBJID')
   demo1$SEX = as.numeric(factor(demo1$SEX,levels = unique(demo1$SEX),exclude = NULL))
   demo1$RACE = as.numeric(factor(demo1$RACE,levels = unique(demo1$RACE),exclude = NULL))
   demo1$ATRT = as.numeric(factor(demo1$ATRT,levels = unique(demo1$ATRT),exclude = NULL))

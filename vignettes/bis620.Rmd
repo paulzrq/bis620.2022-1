@@ -41,7 +41,9 @@ Ruiqiu Zhang(rz345)
 We will be using the panitumumab clinical trial data. We will be studying whether age, sex, race, geographic region, KRAS status, Eastern Coorperative Oncology Group Performance Status affect death outcome. Knowing this would help with predicting death.
 
 ## motivation
-The purpose of this study is to determine whether the Baseline Characteristics will influence the treatment effect of panitumumab in combination with FOLFOX compared to FOLFOX alone as first line therapy for metastatic colorectal cancer
+According to the Precision Medicine Initiative, precision medicine is "an emerging approach for disease treatment and prevention that takes into account individual variability in genes, environment, and lifestyle for each person." This approach will allow doctors and researchers to predict more accurately which treatment and prevention strategies for a particular disease will work in which groups of people.
+The dataset in this project comes from the result of Panitumumab Randomized Trial in combination with Chemotherapy for Metastatic Colorectal Cancer. The analysis of the data could help determine in which group of people the treatment protocol has a specific effect.
+Therefore, the purpose of this study is to determine whether the Baseline Characteristics will influence the treatment effect of panitumumab in combination with FOLFOX compared to FOLFOX alone as first line therapy for metastatic colorectal cancer, providing many cancer patients with targeted drugs and helping them receive the matched treatment they each need for their type of genes or baseline characteristics. This reduces the use of treatments which might be less effective and their potential side effects.
 
 ## Scientific research question
 Are the patients' Baseline Characteristics, including age, sex, race, geographic region, KRAS Status, Eastern Cooperative Oncology Group Performance Status and primary tumor type will influence the treatment effect of panitumumab in combination with FOLFOX compared to FOLFOX alone as first line therapy for metastatic colorectal cancer?
@@ -76,7 +78,7 @@ summary_response(ukb_accel)
 This is a visualization function which provides the plot of number of total mutant, wild-type, and unknown KRAS counts conditioned on different types of intervention/treatment, presenting a quantitative description in a sensible way. It is supposed that a patient will be considered “Mutant” if there is at least one “Mutant” biomarker in KRAS exons 3, 4, or 5. Patients will be considered “Wild-type” if they are not “Mutant” and they have more “Wild-type” markers than “Unknown” or “Failure”.
 
 ```{r}
-summary_KRAS(ukb_accel)
+summary_kras(ukb_accel)
 ```
 
 ### Linear Regression
@@ -96,9 +98,9 @@ survival_ATRT(ukb_accel)
 
 #### KRAS
 ```{r}
-Survival_KRAS(ukb_accel)
+survival_kras(ukb_accel)
 
-#survival_ATRT_KRAS(ukb_accel)
+survival_ATRT_KRAS(ukb_accel)
 ```
 
 
