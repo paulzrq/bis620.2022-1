@@ -3,8 +3,9 @@
 #' This function returns a data summary by treatment(ATRT) in the Viewer,
 #' provides the survival analysis result of
 #' "FOLFOX alone" and "Panitumumab + FOLFOX" and visualize it.
-#' @param ls an object inherited from list. It is
+#' @param dl an  object inherited from list. It is
 #' assumed to have `adsl` and 'biomark' list name
+#' @param detail a bool parameter, should be set as TRUE or FALSE
 #' @return a visualization of survival analysis on the 'Plots' with
 #' p-value, a gusummary on the 'Viewer'
 #' and a table of survival analysis result on

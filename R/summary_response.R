@@ -3,13 +3,13 @@
 #' This function summary the number of different types of
 #' response conditioned on
 #' "FOLFOX alone" and "Panitumumab + FOLFOX"
-#' @param ls an object inherited from list. It is
+#' @param dl an object inherited from list. It is
 #' assumed to have a `adae`, `adrsp`, `adsl` list name
 #' @return a plot of number of different types of response.
 #' @importFrom gtsummary tbl_summary
 #' @importFrom purrr map
-#' @importFrom ggplot2 ggplot
-#' @importFrom dplyr n count
+#' @importFrom ggplot2 ggplot aes
+#' @importFrom dplyr n count group_nest mutate desc arrange
 #' @examples
 #' data(ukb_accel)
 #' summary_response(ukb_accel)
@@ -48,7 +48,7 @@ summary_response <- function(dl){
     group_nest(.key = "ae")
   dae = inner_join(dl$adsl|>select(SUBJID, ATRT), ae_nest, by = "SUBJID")
 
-  dae = dae |>  mutate(best_response=map(dae$ae, find_best_response))
+  dae = dae |> mutate(best_response=map(dae$ae, find_best_response))
 
 
   ae_counts = dae |>

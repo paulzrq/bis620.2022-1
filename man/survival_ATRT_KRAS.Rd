@@ -7,8 +7,14 @@
 survival_ATRT_KRAS(dl, name = "Mutant", detailed = FALSE)
 }
 \arguments{
-\item{ls}{an object inherited from list. It is
+\item{dl}{an object inherited from list. It is
 assumed to have \code{adsl} and 'biomark' list name}
+
+\item{name}{a character, type of KRAS a user need to choose, including
+"Wild-type", "Unknown", and "Mutant", its defalt value is "Mutant"}
+
+\item{detailed}{a bool paramter, decide whether to show the
+summary of survival analysis}
 }
 \value{
 a visualization of survival analysis on the 'Plots' with

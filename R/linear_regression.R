@@ -5,6 +5,7 @@
 #' @importFrom dplyr inner_join
 #' @importFrom nlme lme
 #' @importFrom car avPlot
+#' @importFrom stats complete.cases filter na.exclude
 #' @export
 linear_regression <- function(x){
   demo1 = left_join(x$adsl,x$adae,by='SUBJID')
@@ -30,7 +31,7 @@ linear_regression <- function(x){
   print(summary(m1))
   m2 <- lm(y ~ x1_sex+x2_race+x3_atrt+x4_biomark+x5_age+x6_weight+x7_height,data = unique(dataset))
   print(summary(m2))
-  par(mfrow=c(2,4))
+
   avPlot(m2,variable="x1_sex",ask=FALSE)
   avPlot(m2,variable="x2_race",ask=FALSE)
   avPlot(m2,variable="x3_atrt",ask=FALSE)

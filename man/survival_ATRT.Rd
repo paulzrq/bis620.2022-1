@@ -7,8 +7,10 @@
 survival_ATRT(dl, detail = FALSE)
 }
 \arguments{
-\item{ls}{an object inherited from list. It is
+\item{dl}{an  object inherited from list. It is
 assumed to have \code{adsl} and 'biomark' list name}
+
+\item{detail}{a bool parameter, should be set as TRUE or FALSE}
 }
 \value{
 a visualization of survival analysis on the 'Plots' with

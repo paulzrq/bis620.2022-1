@@ -3,8 +3,12 @@
 #' This function returns a result of survival analysis
 #' to assess the effect of
 #' treatment conditioned on different type of KRAS and visualize it.
-#' @param ls an object inherited from list. It is
+#' @param dl an object inherited from list. It is
 #' assumed to have `adsl` and 'biomark' list name
+#' @param name a character, type of KRAS a user need to choose, including
+#' "Wild-type", "Unknown", and "Mutant", its defalt value is "Mutant"
+#' @param detailed a bool paramter, decide whether to show the
+#' summary of survival analysis
 #' @return a visualization of survival analysis on the 'Plots' with
 #' p-value, two tibbles of survival analysis result on
 #' "FOLFOX alone" and "Panitumumab + FOLFOX" conditioned on type

@@ -7,7 +7,7 @@
 summary_response(dl)
 }
 \arguments{
-\item{ls}{an object inherited from list. It is
+\item{dl}{an object inherited from list. It is
 assumed to have a \code{adae}, \code{adrsp}, \code{adsl} list name}
 }
 \value{

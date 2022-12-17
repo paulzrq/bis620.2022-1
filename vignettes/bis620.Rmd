@@ -14,24 +14,134 @@ knitr::opts_chunk$set(
 )
 ```
 
+
 ```{r setup}
 library(bis620.2022)
-
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
 ```
 
-# Your team (name and netid).
-Yorick Chen (yc896)
+```{r, message=FALSE}
+message("You will not see the message.")
+```
 
-# A description of the data.
-This is a data from...
+```{r, echo=FALSE}
+1 + 1
+```
 
-# The motivation for your research question.
-## Motivation 1
-## Motivation 2
-# A scientific research question.
-## Question 1
-## Question 2
+## team
+Laura Sun (ls3474)
+
+Yutong Ge (yg393)
+
+Yongzhuo Chen(yc896)
+
+Ruiqiu Zhang(rz345)
+
+## description of the data
+We will be using the panitumumab clinical trial data. We will be studying whether age, sex, race, geographic region, KRAS status, Eastern Coorperative Oncology Group Performance Status affect death outcome. Knowing this would help with predicting death.
+
+## motivation
+The purpose of this study is to determine whether the Baseline Characteristics will influence the treatment effect of panitumumab in combination with FOLFOX compared to FOLFOX alone as first line therapy for metastatic colorectal cancer
+
+## Scientific research question
+Are the patients' Baseline Characteristics, including age, sex, race, geographic region, KRAS Status, Eastern Cooperative Oncology Group Performance Status and primary tumor type will influence the treatment effect of panitumumab in combination with FOLFOX compared to FOLFOX alone as first line therapy for metastatic colorectal cancer?
+
+## 4. Analysis
+
+### Descriptive Statistics
+
+#### Basic information of variables
+This function provide the basic information about baseline characteristics of participants in different groups, including the average and standard deviation of age(unit: years), sex(including female and male, measure type: count of participants, unit: participants), race/ethnicity(including White or Caucasian, Black or African American, Hispanic or Latino, Asian and Other, measure type: number, unit: participants). This function is used to present quantitative descriptions in a manageable form, helping us to simplify large amounts of data in a sensible way.
+```{r}
+devtools::load_all()
+data("ukb_accel")
+library(bis620.2022)
+summary_baseline(ukb_accel)
+```
+#### Sex
+This is a visualization function which provides the plot of number of total male and female counts conditioned on different types of intervention/treatment, presenting a quantitative description in a sensible way. 
+```{r}
+summary_sex(ukb_accel)
+```
+
+
+#### response
+This is a visualization function which provides the plot of number of each type of best response, faceted by arm. In a phase 2 trial, a positive endpoint considered when a patients see partial or complete response and is measured per patient in the overall response variable. Responses are recorded multiple times. It is supposed that the best response is the most favorable over the course of treatment and can be “Complete Response”, “Partial Response”, “Stable Disease”, and “Progressive Disease, with”Complete Response” being the best and “Progressive Disease” being the worst. This visualization highlights the potential relationship between the intervention/treatment and the response.
 
 ```{r}
+summary_response(ukb_accel)
 ```
 
+#### KRAS
+This is a visualization function which provides the plot of number of total mutant, wild-type, and unknown KRAS counts conditioned on different types of intervention/treatment, presenting a quantitative description in a sensible way. It is supposed that a patient will be considered “Mutant” if there is at least one “Mutant” biomarker in KRAS exons 3, 4, or 5. Patients will be considered “Wild-type” if they are not “Mutant” and they have more “Wild-type” markers than “Unknown” or “Failure”.
+
+```{r}
+summary_KRAS(ukb_accel)
+```
+
+### Linear Regression
+This is a function that establishes main linear models in this eassy. 
+Firstly, the main dataset is the join of adsl,adae and biomark using the primary key "SUBJID". For the some catagorical variables, the factor( ) and as.numeric ( ) function is used to transform "SEX","RACE","ATRT", "BMMTR1" into numeric variables. "DTH" is uesd as the Y in the linear models. The seven variables are x1_sex, x2_race, x3_atrt, x4_biomark, x5_age, x6_weight, x7_height. 
+```{r}
+linear_regression(ukb_accel)
+```
+
+### Survival Analysis
+
+#### ATRT
+```{r}
+survival_ATRT(ukb_accel)
+```
+
+
+#### KRAS
+```{r}
+Survival_KRAS(ukb_accel)
+
+#survival_ATRT_KRAS(ukb_accel)
+```
+
+
+#### Sex
+```{r}
+survivalATRT_sex(ukb_accel)
+```
+
+#### age
+```{r}
+survivalATRT_age(ukb_accel)
+```
+
+#### Biomarker
+This is a function that returns the summary of survival analysis on different treatments with different biomark results, and visualize the result in a more sensible way. It will return the results of descriptive statistics grouped by the means of treatment and the biomarks, including FOLFOX alone, Mutant; FOLFOX alone, Unknown; FOLFOX alone, Wild-type; Panitumumab + FOLFOX, Mutant; Panitumumab + FOLFOX, Unknow and Panitumumab + FOLFOX, Wild-type. the result is a gtsummary class and could be viewed by clicking "View".
+```{r}
+#survivalATRT_Biomark(ukb_accel)
+```
+
+## 5. Interpretation
+
+### Linear Regression
+two linear models are built. One is a simple multiple regression model, the results show that some of the variables are not statistically significant only biomark, age and height are related to death result significantly, with p-values < 0.05. The R square of this models is only 0.03 and F value is 4.28. We consider the model is not suitable and variables may related to each other. Therefore a mixed effect model is built. The main idea of this model is that samples in the same levels are related with each other and are independent from different levels. The coefficients of this models contains the fixed factors and the ramdom factors. The latter one is used to divide the samples into different levels. In this case, We set the most significant varialbe, x4_biomark, as the random factor and divided the samples into 4 groups. From the result we can tell that this model fits better and the variance of the random factor accounts for a big part of the the whole variance.
+
+At last part,  several added varaible plots are plotted. Theses plots are used to detect which varaible is more important to Y.  X labels are the residual of X-P(X), P(X) is the projection of x on the column space of the remaining variables. and Y labels is the residual of Y - P(Y). The larger the slope is, the more important the variable is. We can tell that biomark, age, weight and height all contain valueble information 
+
+### Biomarker
+The result of survival analysis is printed in the Console, showing that  for the 203 people with the FOLFOX alone treatment and show mutant in the dataset, 228 people with the FOLFOX alone treatment and show wild-type, 205 people with the Panitumumab+FOLFOX show mutant, 228 people with the Panitumumab+FOLFOX show wild-type. For FOLFOX treatment showed mutant type, among these 203 people there was a median survival time of 614 days (the median is used because of the skewed distribution of the data). The 95% confidence interval for the median survival time for the 203 uncensored individuals is (512, 681). As for the 228 people treated by FOLFOX and showed wild-type,  people were uncensored (followed for the entire time, until occurrence of event) and among these 228 people there was a median survival time of 616 days (the median is used because of the skewed distribution of the data). The 95% confidence interval for the median survival time for the 350 uncensored individuals is (531, 724). For Panitumumab + FOLFOX treatment showed mutant type, among these 205 people there was a median survival time of 480 days (the median is used because of the skewed distribution of the data). The 95% confidence interval for the median survival time for the 203 uncensored individuals is (509, 561). As for the 228 people treated by Panitumumab + FOLFOX and showed wild-type,  people were uncensored (followed for the entire time, until occurrence of event) and among these 228 people there was a median survival time of 790 days (the median is used because of the skewed distribution of the data). The 95% confidence interval for the median survival time for the 350 uncensored individuals is (684, 908).
+The visualization of the survival analysis could be seen by clicking "Plots", the confidence interval of the curve and the p-value is on the plot. This plot shows the survival curve (Kaplan-Meier plot), the proportion of individual who have survived up until that particular time as a solid black line and the 95% confidence interval (the dashed lines). The p-value is 1e-06  , showing that there is a statistically significant difference between the survival curves. The parameter "detail" of this function is the bool parameter, if the detailed summary of the survival analysis is wished to see, then the parameter should be set as "TRUE". The summary goes through each time point in the study in which an individual was lost to follow up or died and re-computes the total number of people still at risk (n.risk), the number of events at that time point (n.event), the proportion of individuals who survived up until that point (survival) and the standard error (std.err) and 95% confidence interval (lower 95% CI, upper 95% CI) for the proportion of individuals who survived at that point.
+In order to determine if there is a statistically significant difference between the survival curves, we perform what is known as a log-rank test, which tests the following hypothesis:
+H0: There is no difference in the survival function between those who were treated with different treatments and showed different biomarks
+Ha: There is a difference in the survival function between those who were treated with different treatments adn showed different biomarks
+We see that when testing the null hypothesis that there is a difference in the survival function for those who were treated with  different treatments adn showed different biomarks. Therefore we reject the null hypothesis χ12 = 35.4 with a p-value = 1e-06.
+
+### KRAS
+According to the result, as for the "Unknown" type of KRAS,  36 people with the FOLFOX alone treatment in the dataset, 29 people were uncensored (followed for the entire time, until occurrence of event) and among these 29 people there was a median survival time of 431 days (the median is used because of the skewed distribution of the data). The 95% confidence interval for the median survival time for the 29 uncensored individuals is (370, 611). While 35 people treated by Panitumumab + FOLFOX, and 28 people among them were uncensored (followed for the entire time, until occurrence of event) and among these 28 people there was a median survival time of 562 days (the median is used because of the skewed distribution of the data). The 95% confidence interval for the median survival time for the 28 uncensored individuals is (414, 669). The p-value is 0.8, showing that there is not a statistically significant difference between the survival curves. Therefore the treatment on patients with "Unknown" KRAS were not statistically significant.
+As for the "Mutant" type of KRAS, 203 people with the FOLFOX alone treatment in the dataset, 162 people were uncensored (followed for the entire time, until occurrence of event) and among these 162 people there was a median survival time of 614 days (the median is used because of the skewed distribution of the data). The 95% confidence interval for the median survival time for the 162 uncensored individuals is (512, 681). While 205 people treated by Panitumumab + FOLFOX, and 168 people among them were uncensored (followed for the entire time, until occurrence of event) and among these 168 people there was a median survival time of 480 days (the median is used because of the skewed distribution of the data). The 95% confidence interval for the median survival time for the 168 uncensored individuals is (409, 561). The p-value is 0.09, showing that there is a certain trend toward significance. Therefore, the treatment on patients with "Mutant" Kras type were slightly statistically significant.
+As for the "Wild-type" of KRAS, 228 people with the FOLFOX alone treatment in the dataset, 159 people were uncensored (followed for the entire time, until occurrence of event) and among these 159 people there was a median survival time of 616 days (the median is used because of the skewed distribution of the data). The 95% confidence interval for the median survival time for the 162 uncensored individuals is (531, 724). While 228 people treated by Panitumumab + FOLFOX, and 144 people among them were uncensored (followed for the entire time, until occurrence of event) and among these 144 people there was a median survival time of 790 days (the median is used because of the skewed distribution of the data). The 95% confidence interval for the median survival time for the 168 uncensored individuals is (684, 908). The p-value is 0.09, showing that there is a certain trend toward significance. Therefore, the treatment on patients with "Wild-type" Kras  were slightly statistically significant.
+
+### Age
+From the results showed in the console, we can see that the p value is 0.5. This p value is very large, indicating that there is no significant difference between age groups. In other words, patients in different age groups do not differ much in terms of survival probability. 
+
+### Sex
+Form the viewer panel we get after running the function, we know that 186 females are in the control group, 170 females are in the treatment group, 281 males are in the control group and 298 males are in the treatment group. 
+
+The p value is 0.6, which is pretty large. This indicates that there is no significant different between females and males. In other words, patients of different sexes do not differ much in terms of survival probability. 

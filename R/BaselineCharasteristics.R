@@ -3,7 +3,7 @@
 #' This function summary the baseline characteristics
 #' conditioned on
 #' "FOLFOX alone" and "Panitumumab + FOLFOX"
-#' @param ls an object inherited from list. It is
+#' @param dl an object inherited from list. It is
 #' assumed to have a `adsl` list name
 #' @return a data.frame of summary of baseline characteristics
 #' including number of male, number female, mean of age,

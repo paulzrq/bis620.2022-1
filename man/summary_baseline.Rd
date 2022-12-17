@@ -7,7 +7,7 @@
 summary_baseline(dl)
 }
 \arguments{
-\item{ls}{an object inherited from list. It is
+\item{dl}{an object inherited from list. It is
 assumed to have a \code{adsl} list name}
 }
 \value{
