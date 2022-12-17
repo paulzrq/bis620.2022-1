@@ -16,7 +16,6 @@
 #' @export
 summary_response <- function(dl){
   ae = dl$adrsp
-  ae_temp = ae |> group_by(SUBJID) |> summarize(n = n())
   find_best_response = function(aep){
     if ('Complete response' %in% aep$RSRESP){
       return('Complete response')
@@ -33,7 +32,7 @@ summary_response <- function(dl){
   }
 
 
-  count_best_response = function(aep){
+  count_best_response = function(aep) {
     result = 0
     for (i in aep$RSRESP){
       if (i == 'Complete response'){
