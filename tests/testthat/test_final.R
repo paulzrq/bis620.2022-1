@@ -20,8 +20,8 @@ test_that(
   "The test_DTHDY returns a double object.",
   {
     data(ukb_accel)
-    a <- test_dthdy(ukb_accel)
-    expect_type(a, "double")
+    a <- test_DTHDY(ukb_accel)
+    expect_type(a,'double')
   }
 )
 
@@ -30,7 +30,7 @@ test_that(
   {
     data(ukb_accel)
     a <- summary_response(ukb_accel)
-    expect_type(a, "list")
+    expect_type(a,'list')
   }
 )
 
@@ -39,7 +39,7 @@ test_that(
   {
     data(ukb_accel)
     a <- linear_regression(ukb_accel)
-    expect_type(a, "double")
+    expect_type(a,'double')
   }
 )
 
@@ -48,7 +48,7 @@ test_that(
   {
     data(ukb_accel)
     a <- summary_sex(ukb_accel)
-    expect_type(a, "list")
+    expect_type(a,'list')
   }
 )
 
@@ -57,16 +57,25 @@ test_that(
   {
     data(ukb_accel)
     a <- summary(ukb_accel)
-    expect_type(a, "character")
+    expect_type(a,'character')
   }
 )
+
+#test_that(
+ # "The summary returns a list object.",
+ # {
+  #  data(ukb_accel)
+   # a <- survival_ATRT_KRAS(ukb_accel)
+    #expect_type(a,'character')
+  #}
+#)
 
 test_that(
   "The survivalATRT_age returns a list object.",
   {
     data(ukb_accel)
-    a <- survivalatrt_age(ukb_accel)
-    expect_type(a, "list")
+    a <- survivalATRT_age(ukb_accel)
+    expect_type(a,'list')
   }
 )
 
@@ -74,8 +83,8 @@ test_that(
   "The survivalATRT_sex returns a list object.",
   {
     data(ukb_accel)
-    a <- survivalatrt_sex(ukb_accel)
-    expect_type(a, "list")
+    a <- survivalATRT_sex(ukb_accel)
+    expect_type(a,'list')
   }
 )
 
@@ -83,8 +92,8 @@ test_that(
   "The survival_ATRT returns a list object.",
   {
     data(ukb_accel)
-    a <- survival_atrt(ukb_accel)
-    expect_type(a, "list")
+    a <- survival_ATRT(ukb_accel)
+    expect_type(a,'list')
   }
 )
 
@@ -93,7 +102,7 @@ test_that(
   {
     data(ukb_accel)
     a <- survival_kras(ukb_accel)
-    expect_type(a, "list")
+    expect_type(a,'list')
   }
 )
 
@@ -102,7 +111,7 @@ test_that(
   {
     data(ukb_accel)
     a <- summary(ukb_accel)
-    expect_type(a, "character")
+    expect_type(a,'character')
   }
 )
 
@@ -110,7 +119,7 @@ test_that(
   "The survival_ATRT_KRAS returns a list object.",
   {
     data(ukb_accel)
-    a <- survival_atrt_kras(ukb_accel)
-    expect_type(a, "NULL")
+    a <-survival_ATRT_KRAS(ukb_accel)
+    expect_type(a,'NULL')
   }
 )

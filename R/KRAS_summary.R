@@ -41,17 +41,17 @@ summary_kras <- function(dl) {
   for (i in (seq_len(length(comb$BMMTR15)))) {
     type <- c(type, find_type(comb[i, ]))
   }
-  comb$kras <- type
+  comb$KRAS <- type
   summary_table <- comb |> group_by(ATRT) |> dplyr::summarize(
-    Wild_type = sum(kras == "Wild-type"),
-    Unknown = sum(kras == "Unkown"),
-    Failure = sum(kras == "Failure"),
-    Mutant = sum(kras == "Mutant"))
+    Wild_type = sum(KRAS == "Wild-type"),
+    Unknown = sum(KRAS == "Unkown"),
+    Failure = sum(KRAS == "Failure"),
+    Mutant = sum(KRAS == "Mutant"))
   plot_tibble <- summary_table |>
     pivot_longer(-ATRT)
   plot_tibble |> ggplot(aes(x = name, y = value)) +
     geom_col() +
-    geom_text(aes(label = value), vjust = 1.5, color = "white") +
+    geom_text(aes(label = value), vjust = 1.5, color = "white")+
     theme_bw() +
     facet_wrap("ATRT") +
     theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
