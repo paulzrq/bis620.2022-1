@@ -20,21 +20,21 @@
 #' @export
 #'
 
-survival_ATRT <- function(dl, detail=FALSE){
+survival_atrt <- function(dl, detail = FALSE) {
   demo <- left_join(dl$adsl, dl$biomark, by = "SUBJID")
   summary_table <- demo |>
     select(ATRT, DTH, AGE, SEX, B_WEIGHT, B_HEIGHT, RACE) |>
     tbl_summary(by = "ATRT")
-  survive = survfit(Surv(DTHDY, DTH) ~ ATRT, data = demo)
+  survive <- survfit(Surv(DTHDY, DTH) ~ ATRT, data = demo)
 
   print(summary_table)
   print(survive)
   ggsurvplot(survfit(Surv(DTHDY, DTH) ~ ATRT, data = demo),
-             data = demo,pval=TRUE, conf.int=TRUE)
-  if (detail){
+             data = demo, pval = TRUE, conf.int = TRUE)
+  if (detail) {
     print(summary(survive))
   }
-  surv_diff = survdiff(formula = Surv(DTHDY, DTH) ~ ATRT, data = demo)
+  surv_diff <- survdiff(formula = Surv(DTHDY, DTH) ~ ATRT, data = demo)
   print(surv_diff)
-}
 
+}

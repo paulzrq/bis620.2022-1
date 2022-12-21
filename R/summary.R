@@ -10,6 +10,6 @@
 #' data(ukb_accel)
 #' summary_toxicity(ukb_accel)
 #' @export
-summary_toxicity <- function(x){
+summary_toxicity <- function(x) {
   x$adae |> select(AESEVCD) |> tbl_summary()
 }

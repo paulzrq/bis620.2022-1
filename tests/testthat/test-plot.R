@@ -1,4 +1,3 @@
-
 test_that(
   "The accel_plot() errors when no time or freq column.",
   {
@@ -7,9 +6,6 @@ test_that(
   }
 )
 
-
-
-
 test_that(
   "The accel_plot() errors when no time or freq column.",
   {
@@ -17,4 +13,3 @@ test_that(
     expect_error(spectral_signature(iris))
   }
 )
-

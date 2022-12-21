@@ -17,45 +17,43 @@
 
 
 
-summary_KRAS <- function(dl){
-  comb = dl$biomark |> select(SUBJID,BMMTNM1,BMMTR1,
-        BMMTNM2,BMMTR2,BMMTNM3,BMMTR3,BMMTNM15,BMMTR15)
-  comb = inner_join(comb, dl$adsl |> select(ATRT, SUBJID),
-                    by='SUBJID')
-  find_type = function(aep){
-    if ("Mutant" %in% aep){
+summary_kras <- function(dl) {
+  comb <- dl$biomark |> select(SUBJID, BMMTNM1, BMMTR1,
+        BMMTNM2, BMMTR2, BMMTNM3, BMMTR3, BMMTNM15, BMMTR15)
+  comb <- inner_join(comb, dl$adsl |> select(ATRT, SUBJID),
+                    by = "SUBJID")
+  find_type <- function(aep) {
+    if ("Mutant" %in% aep) {
       return("Mutant")
-    }
-    else{
-      Wild_num = sum(aep == "Wild-type")
-      Unknown_num = sum(aep == "Unknown")
-      Failure_num = sum(aep == "Failure")
-      if(Wild_num > (Failure_num + Unknown_num)){
+    }else {
+      wild_num <- sum(aep == "Wild-type")
+      unknown_num <- sum(aep == "Unknown")
+      failure_num <- sum(aep == "Failure")
+      if (wild_num > (failure_num + unknown_num)) {
         return("Wild-type")
-      }
-      else{
+      }else {
         return("Unkown")
       }
     }
   }
 
-  type = c()
-  for (i in (1:length(comb$BMMTR15))){
-    type = c(type, find_type(comb[i,]))
+  type <- c()
+  for (i in (seq_len(length(comb$BMMTR15)))) {
+    type <- c(type, find_type(comb[i, ]))
   }
-  comb$KRAS = type
+  comb$kras <- type
   summary_table <- comb |> group_by(ATRT) |> dplyr::summarize(
-    Wild_type = sum(KRAS=="Wild-type"),
-    Unknown = sum(KRAS == "Unkown"),
-    Failure = sum(KRAS == "Failure"),
-    Mutant = sum(KRAS == "Mutant"))
-  plot_tibble = summary_table |>
+    Wild_type = sum(kras == "Wild-type"),
+    Unknown = sum(kras == "Unkown"),
+    Failure = sum(kras == "Failure"),
+    Mutant = sum(kras == "Mutant"))
+  plot_tibble <- summary_table |>
     pivot_longer(-ATRT)
-  plot_tibble |> ggplot(aes(x = name, y = value))+
+  plot_tibble |> ggplot(aes(x = name, y = value)) +
     geom_col() +
-    geom_text(aes(label = value), vjust = 1.5, color="white")+
+    geom_text(aes(label = value), vjust = 1.5, color = "white") +
     theme_bw() +
-    facet_wrap("ATRT")+
-    theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+    facet_wrap("ATRT") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
     xlab("KRAS type") + ylab("count")
 }

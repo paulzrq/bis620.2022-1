@@ -6,9 +6,11 @@
 #' @import survminer
 #' @export
 
-Survival_KRAS <- function(x){
-  survivaldata = left_join(x$adsl,x$biomark,by='SUBJID')
-  survivaldata$arm = paste(survivaldata$ATRT,survivaldata$BMMTR1,sep = ',')
-  ggsurvplot(survfit(Surv(DTHDY, DTH) ~ arm, data =  survivaldata), data =  survivaldata)
+survival_kras <- function(x) {
+  survivaldata <- left_join(x$adsl, x$biomark, by = "SUBJID")
+  survivaldata$arm <- paste(survivaldata$ATRT, survivaldata$BMMTR1,
+                            sep = ",")
+  ggsurvplot(survfit(Surv(DTHDY, DTH) ~ arm, data = survivaldata),
+             data =  survivaldata)
 
 }

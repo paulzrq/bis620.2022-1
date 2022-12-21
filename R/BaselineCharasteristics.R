@@ -16,32 +16,30 @@
 #' summary_response(ukb_accel)
 #' @export
 
-summary_baseline <- function(dl){
-  adsl = dl$adsl
-  male = adsl |> group_by(ATRT) |>
-    dplyr::summarize(male = sum(SEX == 'Male'))
-  female = adsl |> group_by(ATRT) |>
-    dplyr::summarize(female = sum(SEX == 'Female'))
+summary_baseline <- function(dl) {
+  adsl <- dl$adsl
+  male <- adsl |> group_by(ATRT) |>
+    dplyr::summarize(male = sum(SEX == "Male"))
+  female <- adsl |> group_by(ATRT) |>
+    dplyr::summarize(female = sum(SEX == "Female"))
   age_summary <- adsl |> group_by(ATRT) |>
     dplyr::summarize(mean_age = mean(AGE), std_age = sd(AGE))
   weight_summary <- adsl |> group_by(ATRT) |>
     dplyr::summarize(mean_weight = mean(B_WEIGHT),
               std_weight = sd(B_WEIGHT))
   height_summary <- adsl |> group_by(ATRT) |>
-    dplyr::summarize(mean_height = mean(B_HEIGHT, na.rm=TRUE),
-              std_height = sd(B_HEIGHT,  na.rm=TRUE))
-  race <- adsl |> group_by(ATRT) |> count(RACE)
-  race_name <- factor(race$RACE[1:5])
+    dplyr::summarize(mean_height = mean(B_HEIGHT, na.rm = TRUE),
+              std_height = sd(B_HEIGHT,  na.rm = TRUE))
 
   race_summary <- adsl |> group_by(ATRT) |>
     dplyr::summarize(Asian = sum(RACE == "Asian"),
               Black_African = sum(RACE == "Black or African American"),
               Hispanic_Latino = sum(RACE == "Hispanic or Latino"),
               Other = sum(RACE == "Other"),
-              White_Caucasian = sum(RACE == "White or Caucasian"),)
+              White_Caucasian = sum(RACE == "White or Caucasian"), )
   overall_summary <- join_all(list(male, female, age_summary,
-                      weight_summary,height_summary, race_summary),
-                      by="ATRT")
+                      weight_summary, height_summary, race_summary),
+                      by = "ATRT")
   overall_summary <-  t(data.frame(overall_summary, row.names = 1))
-  round(overall_summary,2)
+  round(overall_summary, 2)
 }
