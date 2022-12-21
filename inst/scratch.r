@@ -12,5 +12,3 @@ summary_baseline(ukb_accel)
 summary_response(ukb_accel)
 summary_kras(ukb_accel)
 summary_sex(ukb_accel)
-
-

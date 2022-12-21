@@ -27,44 +27,27 @@ survivalatrt_age <- function(dl, detail = FALSE) {
                               BMMTNM3, BMMTR3, BMMTNM15, BMMTR15)
   comb <- inner_join(comb, dl$adsl, by = "SUBJID")
   find_type <- function(aep) {
+    wild_num <- sum(aep == "Wild-type")
+    unknown_num <- sum(aep == "Unknown")
+    failure_num <- sum(aep == "Failure")
     if ("Mutant" %in% aep) {
       return("Mutant")
+    } else if (wild_num > (failure_num + unknown_num)) {
+      return("Wild-type")
     } else {
-      wild_num <- sum(aep == "Wild-type")
-      unknown_num <- sum(aep == "Unknown")
-      failure_num <- sum(aep == "Failure")
-      if (wild_num > (failure_num + unknown_num)) {
-        return("Wild-type")
-      } else {
-        return("Unkown")
-      }
+      return("Unknown")
     }
   }
 
-  type <- c()
-  for (i in (1:tail(seq_along(comb$BMMTR15), 1))){
-    type <- c(type, find_type(comb[i, 1:9]))
-  }
-  comb$kras <- type
+  comb$kras <- apply(comb[, 1:9], 1, find_type)
+
   summary_table <- comb |>
     select(ATRT, DTH, AGE, SEX, B_WEIGHT, B_HEIGHT, RACE, kras) |>
     tbl_summary(by = "ATRT")
-  age_group <- c(1:tail(seq_along(comb$AGE), 1))
-  for (i in 1:tail(seq_along(comb$AGE), 1)) {
-    if (comb$AGE[i] >= 27 && comb$AGE[i] < 42) {
-      age_group[i] <- "age=[27, 42)"
-    }
-    if (comb$AGE[i] >= 42 && comb$AGE[i] < 57) {
-      age_group[i] <- "age=[42, 57)"
-    }
-    if (comb$AGE[i] >= 57 && comb$AGE[i] < 72) {
-      age_group[i] <- "age=[57, 72)"
-    }
-    if (comb$AGE[i] >= 72 && comb$AGE[i] < 85) {
-      age_group[i] <- "age=[72, 85)"
-    }
-  }
-  comb$age_group <- age_group
+  comb$age_group <- ifelse(comb$AGE >= 27 & comb$AGE < 42, "age=[27, 42)",
+            ifelse(comb$AGE >= 42 & comb$AGE < 57, "age=[42, 57)",
+            ifelse(comb$AGE >= 57 & comb$AGE < 72, "age=[57, 72)",
+            ifelse(comb$AGE >= 72 & comb$AGE < 85, "age=[72, 85)", NA))))
   comb$arm <- paste(comb$age_group, comb$ATRT, sep = ", ")
   survive <- survfit(Surv(DTHDY, DTH) ~ arm, data = comb)
 
