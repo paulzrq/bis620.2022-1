@@ -17,9 +17,10 @@
 #' @importFrom gtsummary tbl_summary
 #' @importFrom survminer ggsurvplot
 #' @importFrom survival Surv survfit survdiff
+#' @importFrom utils tail
 #' @examples
 #' data(ukb_accel)
-#' survivalATRT_age(ukb_accel)
+#' survivalatrt_age(ukb_accel)
 #' @export
 survivalatrt_age <- function(dl, detail = FALSE) {
   comb <- dl$biomark |> select(SUBJID, BMMTNM1, BMMTR1, BMMTNM2, BMMTR2,

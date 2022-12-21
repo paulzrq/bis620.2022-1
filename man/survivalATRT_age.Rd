@@ -28,5 +28,5 @@ with different age group and visualize it.
 }
 \examples{
 data(ukb_accel)
-survivalATRT_age(ukb_accel)
+survivalatrt_age(ukb_accel)
 }

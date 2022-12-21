@@ -17,6 +17,7 @@
 #' @importFrom gtsummary tbl_summary
 #' @importFrom survminer ggsurvplot
 #' @importFrom survival Surv survfit survdiff
+#' @importFrom utils tail
 #' @examples
 #' data(ukb_accel)
 #' summary_response(ukb_accel)
@@ -27,7 +28,7 @@ survival_atrt_kras <- function(dl, name = "Mutant", detailed = FALSE) {
   kras_names <- c("Wild-type", "Unknown", "Mutant")
   if (!name %in% kras_names) {
     warning("There is no '", name, "' in the KRAS type, please type
-             'Wild-type', 'Unknown', or 'Failure', the defalt value
+             'Wild-type', 'Unknown', or 'Mutant', the defalt value
              for name is 'Mutant'")
     name <- "Mutant"
   }

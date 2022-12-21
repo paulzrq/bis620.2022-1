@@ -28,5 +28,5 @@ with different sex and visualize it.
 }
 \examples{
 data(ukb_accel)
-survivalATRT_sex(ukb_accel)
+survivalatrt_sex(ukb_accel)
 }

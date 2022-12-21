@@ -17,9 +17,10 @@
 #' @importFrom gtsummary tbl_summary
 #' @importFrom survminer ggsurvplot
 #' @importFrom survival Surv survfit survdiff
+#' @importFrom utils tail
 #' @examples
 #' data(ukb_accel)
-#' survivalATRT_sex(ukb_accel)
+#' survivalatrt_sex(ukb_accel)
 #' @export
 
 survivalatrt_sex <- function(dl, detail = FALSE) {
